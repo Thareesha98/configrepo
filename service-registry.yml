@@ -1,12 +1,31 @@
 spring:
   application:
     name: service-registry
+
 server:
   port: 8761
+
 eureka:
   instance:
-    prefer-ip-address: true
+    hostname: localhost
+
   client:
+    # Since this is the registry itself, it doesn't register with another Eureka
     register-with-eureka: false
     fetch-registry: false
+
+  server:
+    # Ensures self-preservation is disabled in dev (optional)
+    enable-self-preservation: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    org.springframework.cloud.netflix.eureka: INFO
+    com.netflix.discovery: INFO
 
